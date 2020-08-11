@@ -566,7 +566,7 @@ public class JwtTest {
 有了JWT以后，我们可以使用token来代替Session/Redis
 
 ```java
- @PostMapping("/login")
+    @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
 
         //初始化返回值
@@ -610,7 +610,7 @@ public class JwtTest {
 这里的代码没有进行优化，只是用最简单直白的方式介绍了JWT对接口的保护
 
 ```java
-@GetMapping("/list")
+    @GetMapping("/list")
     public Map<String, Object> userList(String token) {
 
         //初始化返回值

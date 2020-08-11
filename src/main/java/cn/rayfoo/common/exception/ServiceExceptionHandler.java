@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 /**
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * <p>全局异常处理</p>
  * @date 2020/8/11 16:36
  */
-@ControllerAdvice@Slf4j
+@RestControllerAdvice
+@Slf4j
 public class ServiceExceptionHandler {
 
     /**
@@ -39,7 +41,6 @@ public class ServiceExceptionHandler {
     /**
      * 处理token异常
      */
-    @ResponseBody
     @ExceptionHandler({SignatureVerificationException.class, AlgorithmMismatchException.class, JWTDecodeException.class})
     public Result<String> tokenErrorException() {
         Result<String> result = new Result<>();
@@ -52,7 +53,6 @@ public class ServiceExceptionHandler {
     /**
      * 处理token异常
      */
-    @ResponseBody
     @ExceptionHandler({TokenExpiredException.class})
     public Result<String> tokenExpiredException() {
         Result<String> result = new Result<>();
@@ -65,7 +65,6 @@ public class ServiceExceptionHandler {
     /**
      * 处理所有RuntimeException异常
      */
-    @ResponseBody
     @ExceptionHandler({RuntimeException.class})
     public Result<String> allException(RuntimeException e) {
         Result<String> result = new Result<>();
@@ -79,7 +78,6 @@ public class ServiceExceptionHandler {
     /**
      * 处理所有Exception异常
      */
-    @ResponseBody
     @ExceptionHandler({Exception.class})
     public Result<String> allException(Exception e) {
         Result<String> result = new Result<>();
