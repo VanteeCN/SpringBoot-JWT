@@ -20,11 +20,6 @@ public class JWTInterceptor implements HandlerInterceptor {
         //从请求头内获取token
         String token = request.getHeader("authorization");
 
-
-        if(StringUtils.isEmpty(token))
-        {
-            throw new RuntimeException("无效的token！");
-        }
         //验证令牌  如果令牌不正确会出现异常 被全局异常处理
         JWTUtil.verify(token);
 
