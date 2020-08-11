@@ -1,7 +1,6 @@
 package cn.rayfoo.modules.base.interceptor;
 
 import cn.rayfoo.common.util.JWTUtil;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
