@@ -370,6 +370,10 @@ public class JWTUtil {
      * @param token 输入混淆payload后的token
      */
     public static DecodedJWT verify(String token) throws Exception {
+        //如果token无效
+        if (token == null || "".equals(token)) {
+            throw new JWTDecodeException("无效的token！");
+        }
         //解析token
         String dToken = deConfoundPayload(token);
         //创建返回结果
@@ -390,6 +394,7 @@ public class JWTUtil {
     /**
      * 对一个base64编码进行混淆  此处还可以进行replace混淆，考虑到效率问题，这里就不做啦~
      * 对于加密的思路还有位移、字符替换等~
+     *
      * @param token 混淆payload前的token
      */
     private static String confoundPayload(String token) throws Exception {
@@ -1046,9 +1051,13 @@ public class UserController extends BaseController {
 
 
 
+github:https://github.com/18338862369/SpringBoot-JWT
+
+gitee:https://gitee.com/rayfoo/SpringBoot-JWT
 
 
 
+如果代码对你有帮助 青帮我点个star哦~
 
 
 
