@@ -1,0 +1,45 @@
+#spring相关
+spring:
+  #jdbc配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring-boot-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #追光者连接池配置
+    hikari:
+      minimum-idle: 5
+      connection-test-query: SELECT 1 FROM DUAL
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: SpringBootDemoHikariCP
+      max-lifetime: 60000
+      connection-timeout: 30000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+#mybatis
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: cn.rayfoo.modules.*.entity
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+#通用mapper
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  not-empty: true
+  style: camelhump
+  wrap-keyword: "`{0}`"
+  safe-delete: true
+  safe-update: true
+  identity: MYSQL
+#日志
+logging:
+  level:
+    cn.rayfoo: debug
+    cn.rayfoo.modules.*.mapper: trace
