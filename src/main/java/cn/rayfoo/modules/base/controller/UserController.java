@@ -24,17 +24,13 @@ public class UserController extends BaseController {
 
 
     @PostMapping("/login")
-    public Result<String> login(@RequestBody User user) throws Exception {
+    public Result login(@RequestBody User user) throws Exception {
 
-        //初始化返回值
-        Result<String> result = new Result<>();
+
 
         //用户登录校验
         User loginUser = userService.login(user);
 
-        //没有抛出异常表示正常
-        result.setCode(HttpStatus.OK.value());
-        result.setMsg("认证成功！");
 
         //声明payload
         Map<String, String> payload = new HashMap<>(2);
@@ -46,23 +42,27 @@ public class UserController extends BaseController {
         //获取令牌
         String token = JWTUtil.getToken(payload, 20);
 
-        //在响应结果中添加token
-        result.setData(token);
+        //初始化返回值
+        Result result = Result.builder()
+                .code(HttpStatus.OK.value())
+                .msg("认证成功！")
+                .data(token)
+                .build();
 
         //返回结果
         return result;
     }
 
     @GetMapping("/list")
-    public Result<List<User>> userList() throws Exception {
-
-        //初始化返回值
-        Result<List<User>> result = new Result<>();
-        //如果成功，设置状态码和查询到的结果
-        result.setCode(HttpStatus.OK.value());
-        result.setMsg("查询成功！");
+    public Result userList() throws Exception {
+        //查询所有用户西信息
         List<User> users = userService.userList();
-        result.setData(users);
+        //初始化返回值  如果成功，设置状态码和查询到的结果
+        Result result = Result.builder()
+                .code(HttpStatus.OK.value())
+                .msg("查询成功！")
+                .data(users)
+                .build();
         //返回结果
         return result;
     }

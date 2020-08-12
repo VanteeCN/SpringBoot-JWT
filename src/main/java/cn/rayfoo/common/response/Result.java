@@ -1,5 +1,6 @@
 package cn.rayfoo.common.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 
@@ -7,8 +8,8 @@ import lombok.Data;
  * @author rayfoo@qq.com
  * @date 2020年8月6日
  */
-@Data
-public class Result<T> {
+@Data@Builder
+public class Result {
 
     /**
      * 状态码
@@ -23,7 +24,7 @@ public class Result<T> {
     /**
      * 数据记录
      */
-    private T data;
+    private Object data;
 
     public Result() {
     }
@@ -33,7 +34,7 @@ public class Result<T> {
         this.msg = msg;
     }
 
-    public Result(Integer code, String msg, T data) {
+    public Result(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;

@@ -6,9 +6,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
@@ -42,10 +40,10 @@ public class ServiceExceptionHandler {
      * 处理token异常
      */
     @ExceptionHandler({SignatureVerificationException.class, AlgorithmMismatchException.class, JWTDecodeException.class})
-    public Result<String> tokenErrorException() {
-        Result<String> result = new Result<>();
-        result.setCode(TOKEN_ERROR_EXCEPTION);
-        result.setMsg("无效的token！");
+    public Result tokenErrorException() {
+        Result result = Result.builder().code(TOKEN_ERROR_EXCEPTION)
+                .msg("无效的token！")
+                .build();
         log.error("无效的token");
         return result;
     }
@@ -54,10 +52,10 @@ public class ServiceExceptionHandler {
      * 处理token异常
      */
     @ExceptionHandler({TokenExpiredException.class})
-    public Result<String> tokenExpiredException() {
-        Result<String> result = new Result<>();
-        result.setCode(TOKEN_EXPIRED_EXCEPTION);
-        result.setMsg("token超时！");
+    public Result tokenExpiredException() {
+        Result result = Result.builder()
+                .code(TOKEN_EXPIRED_EXCEPTION)
+                .msg("token超时！").build();
         log.error("用户token超时");
         return result;
     }
@@ -66,10 +64,11 @@ public class ServiceExceptionHandler {
      * 处理所有RuntimeException异常
      */
     @ExceptionHandler({RuntimeException.class})
-    public Result<String> allException(RuntimeException e) {
-        Result<String> result = new Result<>();
-        result.setCode(DEFAULT_EXCEPTION);
-        result.setMsg( e.getMessage());
+    public Result allException(RuntimeException e) {
+        Result result = Result.builder()
+                .code(DEFAULT_EXCEPTION)
+                .msg( e.getMessage())
+                .build();
         log.error(e.getMessage());
         e.printStackTrace();
         return result;
@@ -79,10 +78,11 @@ public class ServiceExceptionHandler {
      * 处理所有Exception异常
      */
     @ExceptionHandler({Exception.class})
-    public Result<String> allException(Exception e) {
-        Result<String> result = new Result<>();
-        result.setCode(DEFAULT_EXCEPTION);
-        result.setMsg( e.getMessage());
+    public Result ResultallException(Exception e) {
+        Result result = Result.builder()
+                .code(DEFAULT_EXCEPTION)
+                .msg(e.getMessage())
+                .build();
         log.error(e.getMessage());
         e.printStackTrace();
         return result;
