@@ -68,6 +68,7 @@ public class JWTUtil {
      * @param token 输入混淆payload后的token
      */
     public static DecodedJWT verify(String token) throws Exception {
+
         //如果token无效
         if (token == null || "".equals(token)) {
             throw new JWTDecodeException("无效的token！");
@@ -75,7 +76,18 @@ public class JWTUtil {
         //解析token
         String dToken = deConfoundPayload(token);
         //创建返回结果
-        return JWT.require(Algorithm.HMAC256(SIGN_KEY)).build().verify(dToken);
+        DecodedJWT verify = null;
+
+        //将异常转换为JWTDecodeException
+        try {
+            verify = JWT.require(Algorithm.HMAC256(SIGN_KEY)).build().verify(dToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new JWTDecodeException("无效的token！");
+        }
+
+        //返回结果
+        return verify;
 
     }
 
